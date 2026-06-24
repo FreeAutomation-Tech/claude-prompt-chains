@@ -54,12 +54,16 @@ class TestChainExecutor:
             "claude_prompt_chains.chain.ClaudeClient"
         )
         instance = mock_client.return_value
-        instance.send_prompt.side_effect = [
-            "First result",
-            "good",
-        ]
+
+        def _side_effect(prompt):
+            if "Summarize:" in prompt:
+                return "First result"
+            if "First result" in prompt:
+                return "good"
+            return "bad"
+        instance.send_prompt.side_effect = _side_effect
 
         executor = ChainExecutor(api_key="sk-test")
         results = executor.run(SAMPLE_CHAIN, input_text="test")
         assert results["summarize"] == "First result"
-        assert "First result" in results.get("analyze", "")
+        assert results["analyze"] == "good"
