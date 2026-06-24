@@ -86,6 +86,7 @@ class TestClaudeClient:
         class FakeHTTPError:
             def __init__(self):
                 self.code = 429
+
             def read(self):
                 return b"Rate limited"
 
