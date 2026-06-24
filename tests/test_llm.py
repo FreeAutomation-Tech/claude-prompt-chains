@@ -89,6 +89,8 @@ class TestClaudeClient:
 
             def read(self):
                 return b"Rate limited"
+            def close(self):
+                pass
 
         mocker.patch(
             "claude_prompt_chains.llm.urllib.request.urlopen",
