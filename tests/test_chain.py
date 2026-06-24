@@ -56,9 +56,7 @@ class TestChainExecutor:
         instance = mock_client.return_value
         instance.send_prompt.side_effect = [
             "First result",
-            lambda prompt: (
-                "good" if "First result" in prompt else "bad"
-            ),
+            "good",
         ]
 
         executor = ChainExecutor(api_key="sk-test")
