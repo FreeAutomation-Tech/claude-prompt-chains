@@ -51,7 +51,7 @@ def main():
             print(f"=== {step_name} ===")
             print(output)
             print()
-    except (ChainParseError, ValueError) as e:
+    except (ChainParseError, ValueError, FileNotFoundError) as e:
         print(f"Error: {e}", file=sys.stderr)
         sys.exit(1)
 
